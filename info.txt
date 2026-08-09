@@ -1,0 +1,42 @@
+jacob@gmail.com
+
+
+email:admin@gmail.com 
+password:Test
+
+
+
+Main Campus: prince@gmail.com, sarah@gmail.com, emmanuel@gmail.com
+Old Site: maxwell@gmail.com, grace@gmail.com, daniel@gmail.com
+
+
+I want you to implement these changes and make sure everything is linked preoperly and transitions well:
+1.Make sure most input fields are validated during profile completion (eg:phone number etc)  and signup.
+2.The clinic starts at 8am to 4pm and no booking after 3pm.So ensure the slots follow this.
+3.A doctor should be able to mark a patient as done.So when the time for a patient reaches the admin should see that the current patient is active and when the dr clicks on done it should show to the admin that they are done with tthat particular patient.
+4.Change the patient date of birth  in the dossier modal that shows in the admin portal to age rather from the current year.Also show the age  of the patient in the Dr portal patient dosier  also.Let the dr get the same patient dossier information as  the admin.
+5.Change the name from student portal to patient portal
+6.Dr should have analysis report for each  patient:
+- The system should be able to capture time spent by dr on patient.
+- Number of patient attended by the doctor
+-Types of cases
+-Outcome of cases (eg:referred,capable,...)
+-When the Dr sees the booked patient on their dashboard they should be able to see their medical history or info about them.
+[Be creative and add more amazing features]
+Using a chart or graph for the analysis on the dashboard will be great 
+7.When a Dr marks a patient as done the patient should be able to review them and also rate them with stars on the patient portal.
+8.When applying a booking patients are to specify which clinic location they want to have their treatment at.Eg:Old Site,Campus.
+9.When assigning the booking to a Dr the admin is supposed to select the location and after that the doctors available in that locations will show up so that they can select a slot for them.[Generate 4 new drs 2 each for the different locations and make their password 'Test' and store them in the Db]
+5.Every Dr is supposed to attend to 9 patient each day and they should not exceed that.
+6.When onboarding a patient you can add the occupation of the person:Eg:Trader,Student,...(use dropdown list)
+7.The admin should be able to close slots and state the reason why those slots where closed (optional for them) .Incase if a patient has booked those slots the patient should receive a notification on their dashboard.
+8.Ensure the slots for old site and campus are the same time slots
+9.The Dr should also have analysis of the number of patient they have seen and also the cases they brought to them in the anaylisis.
+10.Patient receives notifications on dashboard on actions performed by admin and doctor on their account
+11.Dr should be able to see patient history
+
+
+
+Ask the lecturer when they open and close (example 8:00am - 5:00pm) on the settings page. So we convert the default configured capacity to be within that time frame.
+Note that time frames are fixed and pulled from the database but can be edited or deleted.
+Note that the Dr appointment dashboard is cleared after 24hrs thus the next day
