@@ -267,7 +267,10 @@ This project is licensed under the **MIT License** - see the LICENSE file for de
 
 ---
 
-## 🤝 Acknowledgments & Authors
+## 🤝 Acknowledgments & Contributors
 Developed for **University of Cape Coast (UCC) Eye Clinic** to modernize optometry services across campus.
 
-- **Developer**: Prince Annan ([@princeannan4332](https://github.com/princeannan4332))
+- **Lead Developer**: Prince Annan ([@princeannan4332](https://github.com/princeannan4332))
+- **Contributors**:
+  - Rachel Mantey
+  - Esther Korankye
