@@ -443,7 +443,7 @@ export default function AdminDashboard({ activeTab = 'bookings', onNavigate }) {
             {/* Header Title & Actions Bar */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Admin Reception Portal</h1>
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Receptionist Portal</h1>
                     <p className="text-xs sm:text-sm text-slate-500 font-normal mt-0.5">
                         Manage capacity slots (8 AM - 4 PM), assign doctors (max 9 patients/day), track active consultations, and close slots with patient notifications.
                     </p>

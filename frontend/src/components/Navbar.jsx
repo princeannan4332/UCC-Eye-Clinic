@@ -105,7 +105,7 @@ export default function Navbar({ onNavigate, currentPage, mobileOpen, setMobileO
                                 <div className="hidden sm:block text-left text-xs">
                                     <div className="font-bold text-slate-900 leading-none">{profile.full_name}</div>
                                     <div className="text-[10px] text-slate-500 capitalize font-medium mt-0.5">
-                                        {profile.role === 'superadmin' ? 'Super Admin' : profile.role === 'doctor_assistant' ? 'Doctor Assistant' : profile.role}
+                                        {profile.role === 'superadmin' ? 'Super Admin' : profile.role === 'doctor_assistant' ? 'Doctor Assistant' : profile.role === 'admin' ? 'Receptionist' : profile.role}
                                     </div>
                                 </div>
                             </div>

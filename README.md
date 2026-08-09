@@ -11,45 +11,79 @@
 
 ---
 
-## 🚀 Key Features
+## 👥 System User Roles & Detailed Responsibilities
 
-### 👨‍🎓 1. Patient Portal
-- **Location-Aware Booking**: Book appointments seamlessly for either **Main Campus** or **Old Site Annex**.
-- **Fixed Daily Capacity**: Time slots operate strictly between **8:00 AM – 4:00 PM** (no bookings allowed past 3:00 PM), enforcing fixed slot quotas (9 patients per doctor daily limit).
-- **Interactive Patient Dossier**: Real-time view of onboarding details, calculated age, occupation breakdown, and clinical visit history.
-- **Queue & Status Tracking**: Live dashboard status updates (`Pending`, `In Progress`, `Done`, `Cancelled`) with automated notification alerts.
-- **Doctor Rating & Feedback**: Rate attending doctors (1–5 stars) and write clinical reviews after consultation completion.
-- **Campus Navigation Tour**: Interactive multi-waypoint navigation route maps leading patients directly from major campus landmarks (e.g. Sam Jonah Library, Main Gate, Valco Hall) to the clinic.
+The OptiFlow ecosystem is built around 5 specialized user roles, ensuring smooth communication and clear division of responsibilities across the entire clinic workflow:
 
-### 🩺 2. Doctor Portal
-- **Live Active Patient Tracker**: Real-time indication when a scheduled patient is actively being seen by the doctor.
-- **Consultation Stopwatch**: Automatic tracking of precise time spent on each patient consultation session.
-- **Patient Dossier & History**: Quick access to comprehensive patient medical history, previous diagnoses, visual acuity metrics, and pre-exam vitals.
-- **One-Click Completion**: Mark patient as "Done", instantly notifying the admin queue and enabling post-visit feedback for the patient.
-- **Doctor Analytics Dashboard**: Visual charts powered by canvas rendering:
-  - Total patients attended & average consultation duration.
-  - Case distribution (e.g. Refractive Errors, Glaucoma screening, Conjunctivitis).
-  - Diagnostic outcomes (e.g., *Prescribed Glasses*, *Referred to Specialist*, *Medication Dispensed*).
-  - Patient satisfaction & review score ratings.
+### 👨‍🎓 1. Patient / Student Portal
+- **Target Users**: UCC Students, Staff, Faculty, and General Public Patients.
+- **Detailed Responsibilities & Features**:
+  - **Account Registration & OTP Verification**: Sign up using a verified email address with OTP security codes. Patients fill out complete profile information including contact numbers and occupation (e.g., *Student*, *Lecturer*, *Trader*, *Civil Servant*).
+  - **Location-Aware Appointment Booking**: Choose between treatment at **Main Campus Clinic** or **Old Site Annex**.
+  - **Smart Time-Slot Booking**: Select 1-hour time slots operating strictly between **8:00 AM and 4:00 PM**. Bookings automatically close at **3:00 PM** to allow doctors to finish consultations by 4:00 PM.
+  - **Real-Time Queue & Status Tracking**: Monitor live appointment status on the dashboard (`Pending`, `Assigned`, `In Progress`, `Done`, or `Cancelled`).
+  - **Instant Dashboard Notifications**: Receive automated push notifications when a receptionist assigns a doctor, when consultation starts/ends, or if a slot is closed by the clinic with an explanation.
+  - **Patient Medical Dossier & History**: View personal onboarding data, calculated current age (computed from date of birth), and historical diagnosis records from past clinic visits.
+  - **Doctor Rating & Review Submission**: After the doctor completes a consultation, patients unlock the ability to leave a 1-to-5 star rating and detailed written feedback on their care experience.
+  - **Turn-by-Turn Campus Navigation Tour**: Interactive visual guide providing step-by-step route directions from 9 major UCC landmarks (Main Gate, Sam Jonah Library, Valco Hall, Casford Hall, Adehye Hall) straight to the Eye Clinic reception desk.
 
-### 🛠️ 3. Clinic Admin Portal
-- **Multi-Location Queue Dashboard**: Unified overview of active appointments across Main Campus and Old Site Annex.
-- **Location-Based Doctor Assignment**: Assign incoming patient bookings to available doctors filtered specifically by clinic location.
-- **Slot Capacity Management**: Open or close time slots dynamically with optional closure reasons (e.g. Staff Meeting, Equipment Maintenance). Closing a slot automatically sends real-time dashboard notifications to affected patients.
-- **Quota Enforcer**: Ensures doctors do not exceed the daily cap of 9 patients.
+---
 
-### 👑 4. Super Admin Portal
-- **System Overview**: High-level telemetry on total patients, appointments, revenue, and active staff.
-- **Staff Management**: Onboard, assign locations, update roles (`Admin`, `Doctor`, `Assistant`, `Super Admin`), or decommission staff accounts across the institution.
+### 🛎️ 2. Receptionist Portal *(Front Desk Administration)*
+- **Target Users**: Clinic Receptionists, Front-Desk Operations Staff, and Triage Administrators.
+- **Detailed Responsibilities & Features**:
+  - **Centralized Multi-Branch Queue Management**: Monitor all incoming patient check-ins and appointments across both Main Campus and Old Site Annex in real time.
+  - **Location-Based Doctor Assignment**: Match incoming unassigned patient bookings to available optometrists based strictly on the selected clinic branch (Main Campus vs. Old Site).
+  - **Doctor Daily Workload Quota Enforcement**: Monitor each doctor's daily assigned count to enforce the strict policy limit of **9 patients per doctor per day**, preventing practitioner burnout and ensuring quality patient care.
+  - **Capacity Slot Management**: Open, modify, or close hourly time slots (8:00 AM – 4:00 PM) based on clinic operations.
+  - **Slot Closure & Automated Patient Alerting**: When closing a slot (e.g. for staff meetings or emergency closures), receptionists can provide an optional closure reason. The system automatically cancels affected bookings and sends instant dashboard notification alerts to impacted patients.
+  - **Live Patient Dossier Access**: View complete patient demographic info, calculated age, contact numbers, and occupation during physical check-in at the front desk.
 
-### 📋 5. Assistant & Clinical Staff Portal
-- **Pre-Examination Vitals**: Log preliminary diagnostic metrics including Visual Acuity (Left/Right eye), Intraocular Pressure (IOP), and primary patient complaints before the doctor consultation.
-- **Activity Logs**: Track assistant activity history and link preliminary findings directly to patient dossiers.
+---
 
-### 🎙️ 6. Voice Translation AI Studio
-- **Real-Time Speech-to-Text (STT)**: Integrated streaming ASR for voice-driven clinical note-taking.
-- **Voice Translation**: Low-latency multi-lingual translation between local languages (e.g., Twi, Fante) and English to ensure friction-free patient-practitioner communication.
-- **Text-to-Speech (TTS)**: Speech synthesis for auditory prescription guidelines and instructions.
+### 🩺 3. Doctor / Optometrist Portal
+- **Target Users**: Licensed Optometrists, Ophthalmologists, and Resident Doctors.
+- **Detailed Responsibilities & Features**:
+  - **Assigned Consultation Queue**: View today's patient queue assigned specifically to them by receptionists, filtered by location.
+  - **Patient Dossier & Medical History**: Review patient age, occupation, past visual acuity readings, historical diagnoses, and clinical notes prior to calling the patient in.
+  - **Pre-Examination Triage Vitals**: Inspect preliminary diagnostic data (Visual Acuity L/R, Intraocular Pressure IOP, Chief Complaint) recorded by Clinical Assistants.
+  - **Live Consultation Stopwatch**: Clicking **"Start Consultation"** initiates an automatic timer that tracks exact time spent with the active patient.
+  - **Real-Time Active Patient Status**: Updating a patient to *In Progress* immediately reflects on the Receptionist Dashboard so the front desk knows which patient is currently in the consultation room.
+  - **Clinical Outcome Recording**: Document case types (e.g., *Refractive Errors*, *Glaucoma*, *Cataracts*, *Conjunctivitis*) and outcomes (e.g., *Prescribed Glasses*, *Medication Dispensed*, *Referred to Specialist*).
+  - **Marking Patients "Done"**: Marking a patient as complete updates the Receptionist dashboard, stops the consultation timer, and enables post-consultation review submission on the patient portal.
+  - **Automated Daily Queue Reset**: The doctor's active daily consultation dashboard automatically clears after 24 hours (overnight) to start fresh for the next clinical day.
+  - **Doctor Analytics Dashboard**: Interactive visual charts rendering:
+    - Total patients attended per day/week/month.
+    - Average consultation duration per patient.
+    - Case type distribution pie/bar charts.
+    - Outcome ratios (referrals vs prescriptions).
+    - Overall patient review ratings and feedback breakdown.
+
+---
+
+### 📋 4. Clinical Assistant / Doctor Assistant Portal
+- **Target Users**: Ophthalmic Nurses, Optometry Interns, and Clinical Triage Assistants.
+- **Detailed Responsibilities & Features**:
+  - **Pre-Examination Triage & Vitals Logging**: Measure and record essential preliminary eye metrics before the doctor consultation, including Visual Acuity (e.g., `6/6`, `6/12`), Intraocular Pressure (`IOP in mmHg`), and primary patient complaints.
+  - **Activity & Clinical Logging**: Log daily triage activities and attach findings directly to the patient's digital dossier.
+  - **Doctor Collaboration**: Assist assigned optometrists by preparing patient charts and ensuring patient readiness in exam rooms.
+
+---
+
+### 👑 5. Super Administrator Portal
+- **Target Users**: Eye Clinic Directors, IT Administrators, and Executive Management.
+- **Detailed Responsibilities & Features**:
+  - **Institutional Telemetry Overview**: High-level metrics monitoring total registered patients, overall system appointment counts, active staff members, and location performance.
+  - **Staff Governance & Onboarding**: Create, edit, role-update (`Receptionist`, `Doctor`, `Clinical Assistant`, `Super Admin`), and delete staff accounts across the entire organization.
+  - **Branch Location Allocation**: Assign new doctors and staff to their designated primary operating location (Main Campus vs Old Site Annex).
+  - **Doctor-Assistant Pairings**: Assign or reassign clinical assistants to work directly under specific doctors.
+
+---
+
+### 🎙️ 6. Voice Translation AI Studio *(Special Feature)*
+- **Real-Time Speech-to-Text (STT)**: Voice-driven dictation for doctors during clinical note-taking.
+- **Multi-Lingual Translation**: Low-latency translation between local languages (e.g., Twi, Fante) and English to remove communication barriers during consultations.
+- **Text-to-Speech (TTS)**: Auditory synthesis for patient instruction and prescription guidance.
 
 ---
 
@@ -104,7 +138,7 @@ OptiFlow/
 │   │   ├── components/       # Dossier modals, analytics charts, custom selects, notifications
 │   │   ├── context/          # Global application state contexts
 │   │   ├── lib/              # Supabase & API utility clients
-│   │   ├── pages/            # Multi-portal dashboards (Student, Doctor, Admin, Voice AI)
+│   │   ├── pages/            # Multi-portal dashboards (Student, Doctor, Receptionist, Voice AI)
 │   │   ├── App.jsx           # Root router & layout configuration
 │   │   └── main.jsx          # React app entry point
 │   └── package.json
@@ -192,7 +226,7 @@ The database migration automatically seeds standard test accounts for rapid test
 
 | Role | Email | Default Password | Location |
 | :--- | :--- | :--- | :--- |
-| **Clinic Admin** | `admin@gmail.com` | `Test` | Main Campus |
+| **Receptionist** | `admin@gmail.com` | `Test` | Main Campus |
 | **Doctor (Main Campus)** | `prince@gmail.com` | `Test` | Main Campus |
 | **Doctor (Main Campus)** | `sarah@gmail.com` | `Test` | Main Campus |
 | **Doctor (Main Campus)** | `emmanuel@gmail.com` | `Test` | Main Campus |
