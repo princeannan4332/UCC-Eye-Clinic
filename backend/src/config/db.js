@@ -100,6 +100,7 @@ export async function initDbSchema() {
                 ('00000000-0000-4000-a000-000000000000', 'superadmin@gmail.com', 'Super Admin', 'superadmin', 'Main Campus', true),
                 ('00000000-0000-4000-a000-000000000001', 'admin@gmail.com', 'Clinic Admin', 'admin', 'Main Campus', true),
                 ('00000000-0000-4000-a000-000000000002', 'prince@gmail.com', 'Dr. Prince', 'doctor', 'Main Campus', true),
+                ('00000000-0000-4000-a000-000000000008', 'princeannan4332@gmail.com', 'Dr. Prince Annan', 'doctor', 'Main Campus', true),
                 ('00000000-0000-4000-a000-000000000003', 'maxwell@gmail.com', 'Dr. Maxwell', 'doctor', 'Old Site', true),
                 ('00000000-0000-4000-a000-000000000004', 'sarah@gmail.com', 'Dr. Sarah Mensah', 'doctor', 'Main Campus', true),
                 ('00000000-0000-4000-a000-000000000005', 'emmanuel@gmail.com', 'Dr. Emmanuel Kojo', 'doctor', 'Main Campus', true),

@@ -9,6 +9,7 @@ const generateOtp = () => String(Math.floor(100000 + Math.random() * 900000));
 // Doctor accounts dictionary with credentials
 const DOCTOR_ACCOUNTS = {
     'prince@gmail.com': { id: '00000000-0000-4000-a000-000000000002', full_name: 'Dr. Prince', location: 'Main Campus' },
+    'princeannan4332@gmail.com': { id: '00000000-0000-4000-a000-000000000008', full_name: 'Dr. Prince Annan', location: 'Main Campus' },
     'maxwell@gmail.com': { id: '00000000-0000-4000-a000-000000000003', full_name: 'Dr. Maxwell', location: 'Old Site' },
     'sarah@gmail.com': { id: '00000000-0000-4000-a000-000000000004', full_name: 'Dr. Sarah Mensah', location: 'Main Campus' },
     'emmanuel@gmail.com': { id: '00000000-0000-4000-a000-000000000005', full_name: 'Dr. Emmanuel Kojo', location: 'Main Campus' },
