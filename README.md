@@ -80,10 +80,147 @@ The OptiFlow ecosystem is built around 5 specialized user roles, ensuring smooth
 
 ---
 
-### 🎙️ 6. Voice Translation AI Studio *(Special Feature)*
-- **Real-Time Speech-to-Text (STT)**: Voice-driven dictation for doctors during clinical note-taking.
-- **Multi-Lingual Translation**: Low-latency translation between local languages (e.g., Twi, Fante) and English to remove communication barriers during consultations.
-- **Text-to-Speech (TTS)**: Auditory synthesis for patient instruction and prescription guidance.
+## 🗺️ Deep Dive: 3D Campus Virtual Navigation Tour using Kuula
+
+The **OptiFlow 3D Navigation Tour** addresses campus wayfinding challenges at the University of Cape Coast (UCC). Built using embedded **Kuula 360° WebGL/HTML5 spatial panoramas**, the navigation suite allows patients, students, staff, and international visitors to visually explore campus routes and locate the Eye Clinic prior to their scheduled appointment.
+
+```mermaid
+graph LR
+    A[Landmark Origin e.g. Main Gate / Library / Halls] --> B[Kuula 360° Spatial Tour]
+    B --> C[UCC Health Services Complex / Annex]
+    C --> D[Eye Clinic Reception Desk]
+```
+
+### 📍 Multi-Branch Campus Coverage
+The navigation page ([NavigationTourPage.jsx](file:///b:/projects/new%20projects%20from%20laptop/React%20js/OptiFlow/frontend/src/pages/NavigationTourPage.jsx)) provides dedicated interactive virtual tours for both UCC clinic branches:
+
+| Campus Location | Target Facility | GPS Coordinates | Kuula Collection Embed URL | Viewport Height |
+| :--- | :--- | :--- | :--- | :--- |
+| **Main Campus** | UCC Health Services Complex, Eye Clinic Unit | `5.1054° N, 1.2821° W` | `https://kuula.co/share/collection/7TMFG` | 560px |
+| **Old Site Annex** | UCC Old Site Campus Complex | `5.1012° N, 1.2875° W` | `https://kuula.co/share/collection/7TgVY` | 500px |
+
+### 🛠️ Key Technical & Interactive Features
+- **Responsive WebGL / HTML5 Canvas iFrames**: Embedded using secure `allow="xr-spatial-tracking; gyroscope; accelerometer"` permissions to enable motion-based panoramic controls on mobile phones and tablets.
+- **Landmark-to-Clinic Wayfinding Routes**: Step-by-step navigational guidance connecting 9 major UCC campus landmarks straight to the Eye Clinic reception desk:
+  1. *Main Gate Entrance*
+  2. *Sam Jonah Library*
+  3. *Valco Hall*
+  4. *Casford Hall*
+  5. *Adehye Hall*
+  6. *Kwame Nkrumah Hall*
+  7. *Oguaa Hall*
+  8. *Faculty of Education Lecture Theatre (FELT)*
+  9. *Amissah Arthur Language Center*
+- **Panoramic Controls & Sensor Fusion**: Users can rotate 360 degrees horizontally and vertically, zoom into directional signage, open location thumbnail grids, toggle fullscreen mode, or use device gyroscopes for spatial orientation.
+- **Instant Location Switching**: Seamless tab selector allows patients to toggle between Main Campus and Old Site Annex wayfinding views without reloading the page.
+
+---
+
+## 🎙️ Deep Dive: Multilingual Voice Translation AI Suite & Confana Neural Pipeline
+
+Communication barriers between clinicians and local non-English speaking patients can impair diagnostic accuracy. OptiFlow integrates a **Multilingual Voice AI Studio** powered by the **Confana SDK** (`@dexel-confana/confana-dev`) and **Google Gemini 2.5 Flash**, enabling real-time voice-to-voice translation, zero-shot voice cloning, continuous speech-to-text dictation, and conversational voice assistance.
+
+```mermaid
+graph TD
+    SubGraph1[Client Microphone Utterance] -->|WAV Audio Stream| ASR[Confana ASR Engine]
+    ASR -->|Original Text Transcript| SSE[Express SSE Stream Endpoint]
+    SSE -->|Prompt Engineering| Gemini[Gemini 2.5 Flash LLM]
+    Gemini -->|Streaming Tokens| Translation[Target Translation Output]
+    Translation -->|Text Payload| TTS[Confana TTS Engine / Browser Voice]
+    TTS -->|Synthesized Audio| Speaker[Speaker Output - Adwoa / Kofi / Tasha]
+```
+
+### 🎙️ 4 Core Operating Modes ([VoiceTranslationPage.jsx](file:///b:/projects/new%20projects%20from%20laptop/React%20js/OptiFlow/frontend/src/pages/VoiceTranslationPage.jsx))
+
+#### 1. Real-Time Speech-to-Speech Translation
+- **Audio Capture & ASR Transcription**: Captured live via Web Audio API (`startWavRecording`), producing standard WAV audio blobs sent to `/api/translate/audio`. The backend invokes `confanaClient.asr.transcribeBytes()` to convert audio into text.
+- **Gemini 2.5 Flash SSE Stream**: Translates text via Server-Sent Events (`/api/translate/stream`). The prompt is engineered specifically for clinical dialogue (interpreting eye symptoms like itching, blurred vision, or IOP checkups while preserving natural phrasing).
+- **Multilingual Support**: Supports low-latency translation between English, local Ghanaian languages (**Akan / Twi / Fante**, **Ewe**, **Ga**), and global languages (**French**, **Spanish**, **German**, **Italian**, **Chinese**, **Japanese**).
+- **TTS Auditory Output**: Synthesizes output speech using `confanaClient.tts.speak()` with voice speaker profiles, with fallback to Web Speech API `SpeechSynthesis`.
+
+#### 2. Zero-Shot Voice Cloning & TTS Sandbox
+- **Custom Voice Profiles**: Synthesizes clinical instructions or prescription guidelines in specific voice personas (**Adwoa**, **Kofi**, **Tasha**, **Bob**).
+- **Reference Audio Upload**: Users can upload a reference voice recording (`.wav` or `.mp3`) to clone clinician voices for patient instructions.
+
+#### 3. Continuous Streaming Speech-to-Text (STT)
+- **Hands-Free Dictation**: Allows optometrists to speak naturally during examinations while the app streams real-time text snippets directly into clinical record fields.
+
+#### 4. Interactive Clinical Voice Agent Sandbox
+- **WebSocket AI Session**: Connects to `ws://localhost:5000/api/agent-session?agentId=optiflow-optometry-ai` for interactive voice triage and appointment assistance.
+
+---
+
+## 📅 Deep Dive: Step-by-Step Patient Appointment Booking & Consultation Workflow
+
+OptiFlow enforces a structured, multi-stage clinical lifecycle from patient intake to post-consultation reviews, guarded by PostgreSQL database transactions and row-level locking.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Patient
+    participant Portal as Patient Portal
+    participant Backend as Express API & DB
+    participant Receptionist as Receptionist Triage
+    participant Doctor as Optometrist
+    
+    Patient->>Portal: 1. Sign Up & Complete Demographic Dossier (OTP Verification)
+    Patient->>Portal: 2. Select Branch (Main Campus vs. Old Site) & Service
+    Patient->>Portal: 3. Pick 1-Hour Time Slot (8:00 AM - 4:00 PM) & Log Symptoms
+    Portal->>Backend: 4. POST /api/appointments (FOR UPDATE Lock & Slot Check)
+    Backend-->>Portal: 5. Booking Pending Notification Issued
+    Receptionist->>Backend: 6. Assign Doctor (Enforce Max 9 Patients/Doctor Daily Quota)
+    Backend-->>Portal: 7. Appointment Approved Notification (Doctor Assigned)
+    Doctor->>Backend: 8. Start Consultation (Live Timer Activated -> Status 'active')
+    Doctor->>Backend: 9. Record Case Type, Outcome & Notes -> Mark 'completed'
+    Backend-->>Portal: 10. Consultation Done Notification
+    Patient->>Portal: 11. Submit 1-to-5 Star Rating & Review for Doctor
+```
+
+### 📋 Detailed Step-by-Step Breakdown
+
+#### Step 1: Patient Account Registration & Verified Profile Onboarding
+- **Email Verification**: Patients sign up using email and verify using an OTP code sent via Nodemailer.
+- **Demographic Dossier**: Onboarding requires capturing full name, email, phone number, gender, date of birth (from which age is calculated), occupation (*Student*, *Lecturer*, *Trader*, *Civil Servant*, etc.), medical conditions, allergies, and emergency contact details ([OnboardingPage.jsx](file:///b:/projects/new%20projects%20from%20laptop/React%20js/OptiFlow/frontend/src/pages/OnboardingPage.jsx)).
+
+#### Step 2: Clinic Location Selection
+- Patients choose between **Main Campus (Health Services Center)** and **Old Site Clinic Annex**. This selection filters available time slots specifically created for that facility.
+
+#### Step 3: Clinical Service Requirement Selection
+- Patients select the specific service needed:
+  - *General Eye Examination*
+  - *Refraction & Visual Acuity Test*
+  - *Glaucoma Screening & IOP*
+  - *Frame & Lens Fitting*
+  - *Contact Lens Consultation*
+  - *Red Eye / Infection Evaluation*
+
+#### Step 4: Time Slot Selection & Database Concurrency Locking
+- **Operating Hours Policy**: Time slots operate between **8:00 AM and 4:00 PM**. Booking closes at **3:00 PM** to ensure clinicians finish all visits by 4:00 PM.
+- **Atomic Locking (`FOR UPDATE`)**: The backend (`createAppointment` in [appointmentController.js](file:///b:/projects/new%20projects%20from%20laptop/React%20js/OptiFlow/backend/src/controllers/appointmentController.js)) queries `clinic_capacity` with SQL row locking (`FOR UPDATE`). It checks that `booked_slots < max_slots`, increments `booked_slots`, and inserts the appointment record inside a single database transaction (`BEGIN...COMMIT`).
+
+#### Step 5: Structured Symptom & Clinical Complaint Logging
+- Patients provide structured complaint details:
+  - **Primary Complaint**: Blurry vision, eye strain, itching/redness, frequent headaches, glaucoma history, double vision, red eye infection.
+  - **Duration**: `< 3 Days`, `1 - 2 Weeks`, `3 - 4 Weeks`, `> 1 Month`.
+  - **Severity**: `Mild`, `Moderate`, `Severe`.
+  - **Additional Notes**: Open text for patient history.
+
+#### Step 6: Confirmation & Instant Alert Notification
+- The appointment is created with `pending` status. An instant alert notification is saved to the `notifications` table and displayed on the patient's alert feed.
+
+#### Step 7: Front-Desk Receptionist Triage & Location-Based Doctor Allocation
+- Front-desk staff inspect the queue on the Receptionist Dashboard.
+- **Doctor Daily Quota Enforcement**: When approving an appointment and assigning a doctor, the backend checks that the doctor hasn't exceeded the policy limit of **9 patients per doctor per day** (`status IN ('approved', 'active', 'completed')`). If the cap is reached, assignment is blocked.
+- **Approval Notification**: Upon approval, an instant notification is dispatched to the patient detailing their assigned doctor and location.
+
+#### Step 8: Clinical Triage, Live Consultation Stopwatch & Outcomes
+- **Assistant Pre-Triage**: Clinical Assistants log preliminary vitals (Visual Acuity L/R, Intraocular Pressure IOP in mmHg).
+- **Live Consultation Timer**: Clicking **"Start Consultation"** (`PATCH /api/appointments/:id/start`) sets status to `active`, records `consultation_start_time`, and starts a live timer. The active state reflects across front-desk and patient dashboards in real time.
+- **Outcome & Notes Recording**: The doctor selects case classification (e.g. *Refractive Errors*, *Glaucoma*, *Cataracts*, *Conjunctivitis*), case outcome (e.g. *Prescribed Glasses*, *Medication Dispensed*, *Referred to Specialist*), inputs clinical notes, and clicks **"Complete Consultation"** (`PATCH /api/appointments/:id/complete`). Duration in minutes is automatically computed.
+
+#### Step 9: Post-Consultation Doctor Rating & Review
+- Marking an appointment as `completed` unlocks the **Rate & Review Doctor** button on the patient dashboard.
+- Patients submit a **1-to-5 star rating** and detailed feedback ([reviewController.js](file:///b:/projects/new%20projects%20from%20laptop/React%20js/OptiFlow/backend/src/controllers/reviewController.js)), which feeds into the doctor's performance analytics dashboard.
 
 ---
 
